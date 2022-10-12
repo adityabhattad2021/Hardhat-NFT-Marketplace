@@ -13,6 +13,7 @@ const { developmentChains } = require("../../helper-hardhat-config");
 
 			beforeEach(async () => {
 				deployer = (await getNamedAccounts()).deployer;
+				// console.log(deployer);
 				const accounts = await ethers.getSigners();
 				user1 = accounts[4];
 				await deployments.fixture(["all"]);

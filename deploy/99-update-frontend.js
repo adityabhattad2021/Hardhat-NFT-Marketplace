@@ -1,5 +1,5 @@
-const { ethers, network } = require("hardhat");
 const fs = require("fs");
+const { developmentChains } = require("../helper-hardhat-config");
 require("dotenv").config();
 
 const frontEndContractFile = "../nextjs-nft-marketplace/constants/networkMapping.json";
@@ -19,16 +19,18 @@ module.exports = async function () {
 async function updateABI() {
 
 	const nftMarketPlace = await ethers.getContract("NFTMarketplace")
+	console.log(nftMarketPlace.address);
 	fs.writeFileSync(
 		`${frontendABILocation}NFTMarketplace.json`,
 		nftMarketPlace.interface.format(ethers.utils.FormatTypes.json)
 	)
-
-	const basicNFT = await ethers.getContract("BasicNFT")
-	fs.writeFileSync(
-		`${frontendABILocation}BasicNFT.json`,
-		basicNFT.interface.format(ethers.utils.FormatTypes.json)
-	)
+	if (developmentChains.includes(network.name)) {	
+		const basicNFT = await ethers.getContract("BasicNFT")
+		fs.writeFileSync(
+			`${frontendABILocation}BasicNFT.json`,
+			basicNFT.interface.format(ethers.utils.FormatTypes.json)
+		)
+	}
 
 }
 

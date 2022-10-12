@@ -2,7 +2,7 @@ const { ethers, network } = require("hardhat");
 const { moveBlocks } = require("../utils/move-blocks");
 
 const TOKEN_ID = 1;
-const UPDATED_PRICE = ethers.utils.parseEther("50");
+const UPDATED_PRICE = ethers.utils.parseEther("200");
 
 const updateItem = async () => {
     const nftMarketPlace = await ethers.getContract("NFTMarketplace")
@@ -14,8 +14,8 @@ const updateItem = async () => {
     console.log(`Successfully updated the price of the item listed with token id ${TOKEN_ID} to ${UPDATED_PRICE}ETH`);
     console.log("-----------------------------------------------------------");
     if (network.config.chainId == 1337) {
-        ("-----------------------------------------------------------");
-        console.log("Moving one block for transectiob to get confirmed");
+        console.log("-----------------------------------------------------------");
+        console.log("Moving one block for transection to get confirmed");
         await moveBlocks(1, (sleepAmount = 1000));
         console.log("-----------------------------------------------------------");
     }
